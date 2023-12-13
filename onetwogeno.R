@@ -15,13 +15,11 @@ DFM2_summary <- read_csv("Monitor_Two.csv")
 DFM3_summary <- read_csv("Monitor_Three.csv")
 DFM4_summary <- read_csv("Monitor_Four.csv")
 SingleDurations <- read_csv("SingleDurations.csv")
-```
 
 
-**Feeding Summary Data Transformations**
+#**Feeding Summary Data Transformations**
   
-  Selects only the columns (variables) from 'data.frame' that you want:
-  ```{r}
+#Selects only the columns (variables) from 'data.frame' that you want:
 #overrides previous data.frame to just include the selected variables
 DFM1_summary = DFM1_summary[c("DFM", "Chamber", "Licks", "Events",  "MeanDuration")]
 
@@ -29,57 +27,50 @@ DFM1_summary$Genotype = ifelse(DFM1_summary$Chamber %% 2 == 1, "Odds", "Evens")
 #DFM1_summary$Genotype = ifelse(DFM1_summary$Chamber %% 2 == 1, "Experimental", "Control")
 
 write.csv(DFM1_summary,"DFM1SummaryCondensed.csv", row.names = FALSE)
-```
 
-Monitor 2
-```{r}
+
+#Monitor 2
 DFM2_summary = DFM2_summary[c("DFM", "Chamber", "Licks", "Events",  "MeanDuration")]
 
 DFM2_summary$Genotype = ifelse(DFM2_summary$Chamber %% 2 == 1, "Odds", "Evens")
 #DFM2_summary$Genotype = ifelse(DFM2_summary$Chamber %% 2 == 1, "Experimental", "Control")
 
 write.csv(DFM2_summary,"DFM2SummaryCondensed.csv", row.names = FALSE)
-```
 
-Monitor 3
-```{r}
+
+#Monitor 3
 DFM3_summary = DFM3_summary[c("DFM", "Chamber", "Licks", "Events",  "MeanDuration")]
 
 DFM3_summary$Genotype = ifelse(DFM3_summary$Chamber %% 2 == 1, "Odds", "Evens")
 #DFM3_summary$Genotype = ifelse(DFM3_summary$Chamber %% 2 == 1, "Experimental", "Control")
 
 write.csv(DFM3_summary,"DFM3SummaryCondensed.csv", row.names = FALSE)
-```
+
 
 Monitor 4
-```{r, include=FALSE}
 DFM4_summary = DFM4_summary[c("DFM", "Chamber", "Licks", "Events",  "MeanDuration")]
 
 DFM4_summary$Genotype = ifelse(DFM4_summary$Chamber %% 2 == 1, "Odds", "Evens")
 #DFM4_summary$Genotype = ifelse(DFM4_summary$Chamber %% 2 == 1, "Experimental", "Control")
 
 write.csv(DFM4_summary,"DFM4SummaryCondensed.csv", row.names = FALSE)
-```
-**Choice Duration Transformations**
+
+
+#**Choice Duration Transformations**
   
-  Selects only the columns (varibles) from 'data.frame' that you want(as shown above):
-  ```{r}
+#Selects only the columns (varibles) from 'data.frame' that you want(as shown above):
+
 #overrides previous data.frame to just include the selected variables
 SingleDurations = SingleDurations[, c("DFM", "Chamber", "Minutes", "Licks", "Duration")]
-```
 
 
-Separating ChoiceDuration 'Data.Frame' by TCWell (A or B), DFM (1, 2, 3 & 4), and Chamber (1-12): 
-  ```{r}
+#Separating ChoiceDuration 'Data.Frame' by TCWell (A or B), DFM (1, 2, 3 & 4), and Chamber (1-12): 
 #splits the data.frame into 24 new lists of for each of the conditions listed above
 split_list = split(SingleDurations, f = list(SingleDurations$Chamber, SingleDurations$DFM))
-```
 
 
-Putting separated "split" data into a usable form (aka a turning the list back into a 'data.frame') and creating a "Cumulative Licks Variable":
-  
-  Monitor 1
-```{r}
+#Putting separated "split" data into a usable form (aka a turning the list back into a 'data.frame') and creating a "Cumulative Licks Variable":
+#Monitor 1
 df1 <- as.data.frame(split_list[[1]])
 
 #names and calculating the cumulative licks for individual fly 
@@ -108,10 +99,9 @@ df11 <- as.data.frame(split_list[[11]])
 df11$'Cummulative Licks' = cumsum(df11$Licks)
 df12 <- as.data.frame(split_list[[12]])
 df12$'Cummulative Licks' = cumsum(df12$Licks)
-```
 
-Monitor 2
-```{r}
+
+#Monitor 2
 df13 <- as.data.frame(split_list[[13]])
 df13$'Cummulative Licks' = cumsum(df13$Licks)
 df14 <- as.data.frame(split_list[[14]])
@@ -136,10 +126,9 @@ df23 <- as.data.frame(split_list[[23]])
 df23$'Cummulative Licks' = cumsum(df23$Licks)
 df24 <- as.data.frame(split_list[[24]])
 df24$'Cummulative Licks' = cumsum(df24$Licks)
-```
 
-Monitor 3
-```{r}
+
+#Monitor 3
 df25 <- as.data.frame(split_list[[25]])
 df25$'Cummulative Licks' = cumsum(df25$Licks)
 df26 <- as.data.frame(split_list[[26]])
@@ -164,10 +153,9 @@ df35 <- as.data.frame(split_list[[35]])
 df35$'Cummulative Licks' = cumsum(df35$Licks)
 df36 <- as.data.frame(split_list[[36]])
 df36$'Cummulative Licks' = cumsum(df36$Licks)
-```
 
-Monitor 4
-```{r}
+
+#Monitor 4
 df37 <- as.data.frame(split_list[[37]])
 df37$'Cummulative Licks' = cumsum(df37$Licks)
 df38 <- as.data.frame(split_list[[38]])
@@ -192,10 +180,9 @@ df47 <- as.data.frame(split_list[[47]])
 df47$'Cummulative Licks' = cumsum(df47$Licks)
 df48 <- as.data.frame(split_list[[48]])
 df48$'Cummulative Licks' = cumsum(df48$Licks)
-```
 
-Monitor 1
-```{r, include=FALSE}
+
+#Monitor 1
 #bind the rows of monitor 1 back together (but keeps individual cumulative licks per fly)
 DFM1 <- rbind(df1, df2, df3, df4, df5, df6, df7, df8, df9, df10, df11, df12)
 
@@ -205,20 +192,16 @@ head(wide_DFM1)
 
 # These output the new data frames and save them to the working directory
 write.csv(wide_DFM1,"Cumulative Licks Monitor 1.csv", row.names = FALSE)
-```
 
-Monitor 2
-```{r, include=FALSE}
+#Monitor 2
 DFM2 <- rbind(df13, df14, df15, df16, df17, df18, df19, df20, df21, df22, df23, df24)
 
 wide_DFM2 <- DFM2 %>% spread(Chamber, "Cummulative Licks")
 head(wide_DFM2)
 
 write.csv(wide_DFM2,"Cumulative Licks Monitor 2.csv", row.names = FALSE)
-```
 
-Monitor 3
-```{r, include=FALSE}
+#Monitor 3
 
 DFM3 <- rbind(df25, df26, df27, df28, df29, df30, df31, df32, df33, df34, df35, df36)
 
@@ -226,10 +209,9 @@ wide_DFM3 <- DFM3 %>% spread(Chamber, "Cummulative Licks")
 head(wide_DFM3)
 
 write.csv(wide_DFM3,"Cumulative Licks Monitor 3.csv", row.names = FALSE)
-```
 
-Monitor 4
-```{r, include=FALSE}
+
+#Monitor 4
 
 DFM4 <- rbind(df37, df38, df39, df40, df41, df42, df43, df44, df45, df46, df47, df48)
 
@@ -237,4 +219,3 @@ wide_DFM4 <- DFM4 %>% spread(Chamber, "Cummulative Licks")
 head(wide_DFM4)
 
 write.csv(wide_DFM4,"Cumulative Licks Monitor 4.csv", row.names = FALSE)
-```
